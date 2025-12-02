@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joe Black – Bábovky</title>
+
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --card-bg: #ffffff;
+      --accent: #d37b3f;
+      --accent-soft: #f0c9a6;
+      --text: #2f2721;
+      --muted: #7a6a5f;
+      --border-radius: 16px;
+      --shadow: 0 10px 25px rgba(0,0,0,0.07);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #fff8f0 0, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-size: clamp(26px, 4vw, 34px);
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toc-card,
+    .recipe-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 22px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .toc-list li {
+      margin-bottom: 6px;
+    }
+
+    .toc-list a {
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      padding: 4px 6px;
+      border-radius: 8px;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .toc-list a span.index {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .toc-list a:hover {
+      background: #f4ebe1;
+      transform: translateX(1px);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #f4ebe1;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    .recipe-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tags {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #e2d5c8;
+      color: var(--muted);
+    }
+
+    .meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      margin-bottom: 4px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    ul, ol {
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    li + li {
+      margin-top: 2px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #dec7af, transparent);
+      margin: 24px 0 18px;
+      opacity: 0.8;
+    }
+
+    .small-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    a.back-top {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a.back-top:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  
+</head>
+<body>
+  <div class="page">
+  <header id="top">
+    <div class="badge">Joe Black · Bábovky</div>
+    <h1>Recepty na bábovky</h1>
+    <p class="subtitle">Sbírka sladkých i slaných bábovek v jednom souboru &mdash; připraveno k pečení i k uložení na web.</p>
+  </header>
+
+  <div class="layout">
+    <!-- OBSAH -->
+    <aside class="toc-card">
+      <h2>Obsah</h2>
+      <ul class="toc-list">
+        <li><a href="#jablecna-babovka"><span class="index">01</span> Jablečná bábovka (vláčná)</a></li>
+        <li><a href="#tvarohova-babovka"><span class="index">02</span> Tvarohová bábovka</a></li>
+        <li><a href="#slana-rohlik-niva"><span class="index">03</span> Slaná bábovka s rohlíky a nivou</a></li>
+        <li><a href="#bananovy-chlebicek"><span class="index">04</span> Banánový chlebíček s čokoládou a ořechy</a></li>
+        <li><a href="#mrkvova-carrot-cake"><span class="index">05</span> Mrkvová bábovka (carrot cake)</a></li>
+        <li><a href="#makovo-citronova"><span class="index">06</span> Mákovo–citronová bábovka s mandlemi</a></li>
+        <li><a href="#pernikova-povidla"><span class="index">07</span> Perníková bábovka s povidly</a></li>
+        <li><a href="#kokosova-bila-coko"><span class="index">08</span> Kokosová bábovka s bílou čokoládou</a></li>
+        <li><a href="#repova-cokoladova"><span class="index">09</span> Čokoládová bábovka s červenou řepou</a></li>
+        <li><a href="#avokadova-limetkova"><span class="index">10</span> Avokádová limetková bábovka</a></li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill">Sladké</span>
+        <span class="pill">Slané</span>
+        <span class="pill">Vláčné</span>
+      </div>
+    </aside>
+
+    <!-- ÚVODNÍ TEXT / POZNÁMKY -->
+    <main class="recipe-card">
+      <h2>Jak stránku používat</h2>
+      <p>
+        Tato stránka obsahuje všechny recepty v jednom souboru. Kliknutím na název v obsahu se
+        přesuneš přímo k dané bábovce. Po každém receptu je zpět odkaz „nahoru“.
+      </p>
+      <p>
+        Všechny recepty jsou psané tak, aby se daly použít při pečení z mobilu nebo tabletu –
+        u každého kroku jsou uvedené konkrétní gramy a množství, aby ses nemusel vracet k seznamu
+        surovin.
+      </p>
+      <p class="small-note">
+        Tip: Pokud to dáváš na web, stačí tento soubor nahrát na hosting jako <code>index.html</code> nebo
+        <code>joe-black-babovky.html</code>.
+      </p>
+    </main>
+  </div>
+
+  <!-- RECEPTY -->
+
+  <!-- 01 JABLEČNÁ -->
+  <section id="jablecna-babovka">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Jednoduchá</span>
+        <span class="tag">Začátečnická</span>
+      </div>
+      <h3>Jablečná bábovka (vláčná a jednoduchá)</h3>
+      <p class="meta">Vláčná bábovka s nastrouhanými jablky, ideální jako první pečení.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>360 g polohrubé mouky</li>
+        <li>200 g krupicového cukru</li>
+        <li>1 balíček prášku do pečiva (cca 12 g)</li>
+        <li>1 lžička mleté skořice</li>
+        <li>3 vejce</li>
+        <li>150 ml oleje (nebo 150 g rozpuštěného másla)</li>
+        <li>400 g nastrouhaných jablek (střední struhadlo)</li>
+        <li>120 ml mléka</li>
+        <li>špetka soli</li>
+        <li>(volitelně 1 balíček vanilkového cukru, trochu rumu)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C (horní/dolní ohřev). Formu na bábovku vymaž máslem a vysyp moukou nebo strouhankou.</li>
+        <li>Do větší mísy nasyp <strong>360 g polohrubé mouky</strong>, <strong>200 g cukru</strong>, přidej <strong>1 balíček prášku do pečiva</strong>, <strong>1 lžičku skořice</strong> a špetku soli. Promíchej.</li>
+        <li>Přidej <strong>3 vejce</strong>, <strong>150 ml oleje</strong> a <strong>120 ml mléka</strong>. Metličkou nebo vařečkou promíchej, až vznikne hladké těsto.</li>
+        <li>Nastrouhej najemno/středně <strong>400 g jablek</strong> a vmíchej do těsta.</li>
+        <li>Těsto nalij do připravené formy, povrch uhlaď.</li>
+        <li>Peč při 170&nbsp;°C asi <strong>45–60 minut</strong>. Zkoušej špejlí – po vytažení má být suchá nebo jen s pár drobečky.</li>
+        <li>Po upečení nech bábovku 10 minut chladnout ve formě, poté ji vyklop a nech zcela vychladnout. Můžeš posypat moučkovým cukrem.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 02 TVAROHOVÁ -->
+  <section id="tvarohova-babovka">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Tvaroh</span>
+        <span class="tag">Vláčná</span>
+      </div>
+      <h3>Tvarohová bábovka (vláčná a jednoduchá)</h3>
+      <p class="meta">Vděčná tvarohová bábovka, která zůstane měkká i další den.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>250 g měkkého tvarohu (vanička, ideálně plnotučný)</li>
+        <li>250 g polohrubé mouky</li>
+        <li>180 g krupicového cukru</li>
+        <li>3 vejce</li>
+        <li>100 ml oleje nebo 100 g rozpuštěného másla</li>
+        <li>1 balíček prášku do pečiva (12 g)</li>
+        <li>1 balíček vanilkového cukru</li>
+        <li>špetka soli</li>
+        <li>(volitelně 2 lžíce mléka, pokud je těsto husté)</li>
+        <li>(volitelně citronová kůra, trochu rumu, rozinky)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu na bábovku vymaž a vysyp.</li>
+        <li>Do mísy dej <strong>3 vejce</strong> a <strong>180 g cukru</strong> + <strong>vanilkový cukr</strong>. Lehce vyšlehej metličkou (nemusí být do pěny).</li>
+        <li>Přidej <strong>250 g tvarohu</strong> a <strong>100 ml oleje (nebo 100 g másla)</strong>, dobře promíchej.</li>
+        <li>V jiné míse smíchej <strong>250 g polohrubé mouky</strong>, <strong>1 prášek do pečiva</strong> a špetku soli.</li>
+        <li>Suchou směs postupně vmíchej do tvarohové směsi. Pokud je těsto příliš husté, přidej 1–2 lžíce mléka.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>. Kontroluj špejlí.</li>
+        <li>Nech 10 minut odpočinout ve formě, potom vyklop a nech vychladnout.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 03 SLANÁ ROHLÍKY + NIVA -->
+  <section id="slana-rohlik-niva">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Slaná</span>
+        <span class="tag">Rohlíky</span>
+        <span class="tag">Sýr</span>
+      </div>
+      <h3>Slaná bábovka s rohlíky a nivou</h3>
+      <p class="meta">Nádivkový styl – rohlíky, šunka, sýr a niva. Výborná teplá i studená.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>3 čerstvé rohlíky (asi 150 g), nakrájené na malé kostičky</li>
+        <li>150 g polohrubé mouky</li>
+        <li>1 balíček prášku do pečiva (12 g)</li>
+        <li>4 vejce</li>
+        <li>80 ml mléka</li>
+        <li>50 ml oleje nebo 50 g rozpuštěného másla</li>
+        <li>100 g nastrouhaného tvrdého sýra (eidam, gouda, čedar…)</li>
+        <li>60–70 g nivy (na malé kousky)</li>
+        <li>150 g šunky nebo slaniny (na kostičky)</li>
+        <li>1/2 lžičky soli</li>
+        <li>špetka pepře</li>
+        <li>1–2 lžičky bylinek (petržel, pažitka, tymián)</li>
+        <li>(volitelně 1 lžička hořčice nebo trochu česneku)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Nakrájej <strong>3 rohlíky (150 g)</strong> na malé kostičky a nech je asi hodinu oschnout na utěrce.</li>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu na bábovku vymaž a vysyp.</li>
+        <li>V míse smíchej <strong>150 g polohrubé mouky</strong>, <strong>1 prášek do pečiva</strong>, <strong>1/2 lžičky soli</strong>, pepř a bylinky.</li>
+        <li>V jiné misce rozšlehej <strong>4 vejce</strong>, přidej <strong>80 ml mléka</strong>, <strong>50 ml oleje</strong> (nebo 50 g másla) a případně hořčici/česnek.</li>
+        <li>Tekutou směs nalij k suché a promíchej v těsto.</li>
+        <li>Přidej <strong>100 g nastrouhaného tvrdého sýra</strong>, <strong>150 g šunky/slaniny</strong> a <strong>60–70 g kousků nivy</strong>. Promíchej.</li>
+        <li>Na konec zlehka vmíchej oschlé rohlíkové kostičky, jen aby se obalily těstem.</li>
+        <li>Těsto vlij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>, dokud není povrch zlatavý a špejle suchá.</li>
+        <li>Po upečení nech 10 minut ve formě, pak vyklop. Podávej teplé nebo studené.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 04 BANÁNOVÝ CHLEBÍČEK -->
+  <section id="bananovy-chlebicek">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Banán</span>
+        <span class="tag">Čokoláda</span>
+      </div>
+      <h3>Banánový chlebíček s čokoládou a vlašskými ořechy</h3>
+      <p class="meta">Hodně vláčný, měkký, ne suchý – jako dobrý banana bread z kavárny.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>3 zralé banány (cca 300 g oloupané váhy)</li>
+        <li>100 g rozpuštěného másla (nebo oleje)</li>
+        <li>120 g cukru (třtinový nebo krupice)</li>
+        <li>2 vejce</li>
+        <li>200 g hladké mouky</li>
+        <li>1 lžička prášku do pečiva</li>
+        <li>1/2 lžičky sody</li>
+        <li>špetka soli</li>
+        <li>1 lžička skořice (volitelně)</li>
+        <li>1 lžička vanilkového extraktu nebo vanilkový cukr</li>
+        <li>2 lžíce mléka nebo bílého jogurtu</li>
+        <li>60 g vlašských ořechů, nahrubo nasekaných</li>
+        <li>60 g hořké čokolády (60–70&nbsp;% kakaa), půl na jemno, půl na hrubší kousky</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu na bábovku nebo chlebíček vymaž a vysyp.</li>
+        <li>Do mísy rozmačkej <strong>3 banány (cca 300 g)</strong> na kaši.</li>
+        <li>Přidej <strong>100 g rozpuštěného másla</strong>, <strong>120 g cukru</strong>, <strong>2 vejce</strong> a <strong>1 lžičku vanilky</strong>. Promíchej.</li>
+        <li>Přimíchej <strong>2 lžíce mléka nebo jogurtu</strong>.</li>
+        <li>V druhé míse smíchej <strong>200 g hladké mouky</strong>, <strong>1 lžičku prášku do pečiva</strong>, <strong>1/2 lžičky sody</strong>, špetku soli a skořici.</li>
+        <li>Suchou směs nasyp k banánové a promíchej jen do spojení.</li>
+        <li>Vmíchej <strong>60 g nasekaných vlašských ořechů</strong> a <strong>60 g nasekané hořké čokolády</strong>.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>50–60 minut</strong>. Špejlí ověř, že je téměř suchá.</li>
+        <li>Nech 10 minut ve formě, pak vyklop a nech vychladnout.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 05 MRKVOVÁ CARROT CAKE -->
+  <section id="mrkvova-carrot-cake">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Mrkev</span>
+        <span class="tag">Luxusní</span>
+      </div>
+      <h3>Mrkvová bábovka (carrot cake styl)</h3>
+      <p class="meta">Luxusní verze s ananasem, rozinkami v rumu, ořechy, máslem a jogurtem.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>250 g jemně nastrouhané mrkve</li>
+        <li>200 g hladké mouky</li>
+        <li>150 g třtinového cukru</li>
+        <li>3 vejce</li>
+        <li>100 g rozpuštěného, vychladlého másla</li>
+        <li>30–45 g bílého jogurtu (2–3 lžíce)</li>
+        <li>80 g vlašských ořechů, nahrubo nasekaných</li>
+        <li>100 g ananasu z plechovky, jemně nasekaného</li>
+        <li>1 lžíce ananasové šťávy</li>
+        <li>60 g rozinek</li>
+        <li>2–3 lžíce rumu na namočení rozinek</li>
+        <li>1 lžička skořice</li>
+        <li>1/2 lžičky mletého zázvoru</li>
+        <li>1/2 lžičky muškátového oříšku</li>
+        <li>špetka soli</li>
+        <li>1 lžička vanilkového extraktu nebo vanilkový cukr</li>
+        <li>1 lžička sody</li>
+        <li>1 lžička prášku do pečiva</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Rozinky (<strong>60 g</strong>) namoč do <strong>2–3 lžic rumu</strong>. Nastrouhej <strong>250 g mrkve</strong>, nasekej <strong>80 g vlašáků</strong> a <strong>100 g ananasu</strong>. Připrav <strong>1 lžíci ananasové šťávy</strong>.</li>
+        <li>Rozpusť <strong>100 g másla</strong> a nech vychladnout. Připrav <strong>30–45 g bílého jogurtu</strong>.</li>
+        <li>Předehřej troubu na 170&nbsp;°C, formu vymaž a vysyp.</li>
+        <li>Do mísy dej <strong>200 g hladké mouky</strong>, <strong>150 g třtinového cukru</strong>, <strong>1 lžičku skořice</strong>, <strong>1/2 lžičky zázvoru</strong>, <strong>1/2 lžičky muškátu</strong>, špetku soli, <strong>1 lžičku sody</strong> a <strong>1 lžičku prášku do pečiva</strong>. Promíchej.</li>
+        <li>Do jiné mísy dej <strong>3 vejce</strong>, <strong>100 g rozpuštěného másla</strong>, <strong>30–45 g jogurtu</strong> a <strong>1 lžičku vanilky</strong>. Promíchej.</li>
+        <li>Tekutou směs nalij k suché a promíchej jen do spojení.</li>
+        <li>Vmíchej <strong>250 g mrkve</strong>, <strong>100 g ananasu</strong>, <strong>1 lžíci ananasové šťávy</strong>, rozinky i s rumem a <strong>80 g vlašských ořechů</strong>.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>50–60 minut</strong>. Špejle má být vlhká jen s drobečky, ne syrová.</li>
+        <li>Po upečení nech 10 minut ve formě, pak vyklop a nech vychladnout.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 06 MÁKOVO-CITRONOVÁ -->
+  <section id="makovo-citronova">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Mák</span>
+        <span class="tag">Citron</span>
+      </div>
+      <h3>Mákovo–citronová bábovka s vanilkou a mandlemi</h3>
+      <p class="meta">Svěží, maková, s mandličkami a citronovou vůní.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>3 vejce</li>
+        <li>150 g cukru</li>
+        <li>120 ml oleje nebo 120 g rozpuštěného másla</li>
+        <li>200 g bílého jogurtu</li>
+        <li>kůra ze 2 citronů (jemně nastrouhaná)</li>
+        <li>šťáva z 1 citronu</li>
+        <li>1 lžička vanilkového extraktu nebo 1 vanilkový cukr</li>
+        <li>250 g hladké mouky</li>
+        <li>80 g mletého máku</li>
+        <li>1 prášek do pečiva (12 g)</li>
+        <li>špetka soli</li>
+        <li>1 lžíce celého máku (volitelně)</li>
+        <li>50 g mandlí, nahrubo nasekaných</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C, formu vymaž a vysyp.</li>
+        <li>Do velké mísy dej <strong>3 vejce</strong> a <strong>150 g cukru</strong>, promíchej.</li>
+        <li>Přidej <strong>120 ml oleje nebo 120 g másla</strong>, <strong>200 g jogurtu</strong>, kůru ze <strong>2 citronů</strong>, šťávu z <strong>1 citronu</strong> a <strong>1 lžičku vanilky</strong>. Promíchej.</li>
+        <li>V jiné míse smíchej <strong>250 g hladké mouky</strong>, <strong>80 g mletého máku</strong>, <strong>1 prášek do pečiva</strong>, špetku soli a případně 1 lžíci celého máku.</li>
+        <li>Suchou směs vsyp do mokré a promíchej jen do spojení.</li>
+        <li>Vmíchej <strong>50 g nasekaných mandlí</strong>.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>. Zkoušej špejlí.</li>
+        <li>Nech 10 minut ve formě, poté vyklop a nech vychladnout. Můžeš polít citronovou polevou (moučkový cukr + citronová šťáva).</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 07 PERNÍKOVÁ -->
+  <section id="pernikova-povidla">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Perník</span>
+        <span class="tag">Povidla</span>
+      </div>
+      <h3>Perníková bábovka s povidly</h3>
+      <p class="meta">Vláčná, medová, krásně voňavá. Něco mezi perníkem a bábovkou.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>3 vejce</li>
+        <li>150 g cukru</li>
+        <li>90 ml oleje nebo 90 g rozpuštěného másla</li>
+        <li>200 g bílého jogurtu nebo kefíru</li>
+        <li>100 g povidel</li>
+        <li>2 lžíce medu (cca 40 g)</li>
+        <li>240 g hladké mouky</li>
+        <li>1 prášek do pečiva (12 g)</li>
+        <li>2 lžičky perníkového koření</li>
+        <li>1 lžička skořice</li>
+        <li>1 lžíce kakaa (cca 8 g)</li>
+        <li>špetka soli</li>
+        <li>(volitelně 50 g nasekaných vlašských ořechů, hrst rozinek)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu na bábovku vymaž a vysyp.</li>
+        <li>Do mísy dej <strong>3 vejce</strong> a <strong>150 g cukru</strong>, promíchej.</li>
+        <li>Přidej <strong>90 ml oleje nebo 90 g másla</strong>, <strong>200 g jogurtu</strong>, <strong>100 g povidel</strong> a <strong>2 lžíce medu</strong>. Promíchej dohladka.</li>
+        <li>V jiné míse smíchej <strong>240 g hladké mouky</strong>, <strong>1 prášek do pečiva</strong>, <strong>2 lžičky perníkového koření</strong>, <strong>1 lžičku skořice</strong>, <strong>1 lžíci kakaa</strong> a špetku soli.</li>
+        <li>Suchou směs nasyp k mokré a promíchej jen do spojení.</li>
+        <li>Volitelně vmíchej <strong>50 g nasekaných vlašských ořechů</strong> a hrst rozinek.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>50–60 minut</strong>. Kontroluj špejlí.</li>
+        <li>Po upečení nech 10 minut ve formě, vyklop a nech vychladnout. Výborná je i druhý den.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 08 KOKOSOVÁ + BÍLÁ ČOKO -->
+  <section id="kokosova-bila-coko">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Kokos</span>
+        <span class="tag">Bílá čokoláda</span>
+      </div>
+      <h3>Kokosová bábovka s bílou čokoládou</h3>
+      <p class="meta">Lehká, kokosová, připomíná Raffaello.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>3 vejce</li>
+        <li>140 g cukru</li>
+        <li>100 ml oleje nebo 100 g rozpuštěného másla</li>
+        <li>150 g bílého jogurtu</li>
+        <li>120 ml kokosového mléka (z plechovky, promíchané)</li>
+        <li>1 lžička vanilkového extraktu nebo vanilkový cukr</li>
+        <li>220 g hladké mouky</li>
+        <li>80 g strouhaného kokosu</li>
+        <li>1 prášek do pečiva (12 g)</li>
+        <li>špetka soli</li>
+        <li>80 g bílé čokolády, nasekané</li>
+        <li>(volitelně 40 g mandlí nebo kokosových chipsů)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu vymaž a vysyp (můžeš použít kokos místo mouky).</li>
+        <li>Do mísy dej <strong>3 vejce</strong> a <strong>140 g cukru</strong>, promíchej.</li>
+        <li>Přidej <strong>100 ml oleje nebo 100 g másla</strong>, <strong>150 g jogurtu</strong>, <strong>120 ml kokosového mléka</strong> a <strong>1 lžičku vanilky</strong>. Promíchej.</li>
+        <li>V jiné míse smíchej <strong>220 g hladké mouky</strong>, <strong>80 g strouhaného kokosu</strong>, <strong>1 prášek do pečiva</strong> a špetku soli.</li>
+        <li>Suchou směs vsyp do mokré a promíchej jen do spojení.</li>
+        <li>Vmíchej <strong>80 g nasekané bílé čokolády</strong> a případně <strong>40 g mandlí</strong> nebo chipsů.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>. Zkoušej špejlí.</li>
+        <li>Nech 10 minut chladnout ve formě, potom vyklop a nech vychladnout.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 09 ŘEPOVÁ ČOKOLÁDOVÁ -->
+  <section id="repova-cokoladova">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Čokoláda</span>
+        <span class="tag">Řepa</span>
+      </div>
+      <h3>Čokoládová bábovka s červenou řepou</h3>
+      <p class="meta">Hodně vláčná, sametová, připomíná red velvet s čokoládou.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>250 g vařené nebo pečené červené řepy (bez slupky)</li>
+        <li>120 g rozpuštěného másla</li>
+        <li>150 g cukru</li>
+        <li>2 vejce</li>
+        <li>1 lžička vanilkového extraktu</li>
+        <li>120 ml mléka nebo 100 g bílého jogurtu</li>
+        <li>200 g hladké mouky</li>
+        <li>50 g kakaa</li>
+        <li>1 prášek do pečiva (12 g)</li>
+        <li>1 lžička sody</li>
+        <li>špetka soli</li>
+        <li>100 g hořké čokolády (60–70&nbsp;% kakaa), nahrubo nasekané</li>
+        <li>(volitelně kůra z 1/2 pomeranče)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Rozmixuj <strong>250 g vařené/pečené řepy</strong> na hladké pyré (můžeš přidat 1–2 lžíce mléka).</li>
+        <li>Předehřej troubu na 170&nbsp;°C. Formu vymaž a vysyp (můžeš použít kakao).</li>
+        <li>Do mísy dej <strong>120 g rozpuštěného másla</strong>, <strong>150 g cukru</strong>, <strong>2 vejce</strong>, <strong>1 lžičku vanilky</strong>, <strong>120 ml mléka nebo 100 g jogurtu</strong> a řepné pyré. Promíchej.</li>
+        <li>V jiné míse smíchej <strong>200 g hladké mouky</strong>, <strong>50 g kakaa</strong>, <strong>1 prášek do pečiva</strong>, <strong>1 lžičku sody</strong> a špetku soli.</li>
+        <li>Suchou směs vsyp do mokré a promíchej jen do spojení.</li>
+        <li>Vmíchej <strong>100 g nasekané hořké čokolády</strong> a případně pomerančovou kůru.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>. Špejle může mít pár vlhkých drobků.</li>
+        <li>Nech 10 minut ve formě, pak vyklop a nech vychladnout.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <!-- 10 AVOKÁDOVÁ LIMETKOVÁ -->
+  <section id="avokadova-limetkova">
+    <div class="divider"></div>
+    <article class="recipe-card">
+      <div class="tags">
+        <span class="tag">Sladká</span>
+        <span class="tag">Avokádo</span>
+        <span class="tag">Limetka</span>
+      </div>
+      <h3>Avokádová limetková bábovka</h3>
+      <p class="meta">Svěží, jemně zelená a překvapivě vláčná, avokádo funguje jako máslo.</p>
+
+      <h4>Suroviny</h4>
+      <ul>
+        <li>2 zralá avokáda (cca 220–240 g dužiny)</li>
+        <li>150 g cukru</li>
+        <li>3 vejce</li>
+        <li>100 ml oleje</li>
+        <li>150 g bílého jogurtu (nebo 120 ml mléka)</li>
+        <li>šťáva ze 2 limetek</li>
+        <li>kůra ze 2 limetek (jemně nastrouhaná)</li>
+        <li>1 lžička vanilkového extraktu</li>
+        <li>240 g hladké mouky</li>
+        <li>1 prášek do pečiva (12 g)</li>
+        <li>1/2 lžičky sody</li>
+        <li>špetka soli</li>
+        <li>(volitelně 80 g bílé čokolády, 30 g kokosu)</li>
+      </ul>
+
+      <h4>Postup</h4>
+      <ol>
+        <li>Rozkroj avokáda, vyndej pecky a vydlabej dužinu. Rozmixuj na hladké pyré (cca <strong>220–240 g</strong>).</li>
+        <li>Předehřej troubu na 170&nbsp;°C, formu vymaž a vysyp.</li>
+        <li>Do mísy dej avokádové pyré, <strong>150 g cukru</strong>, <strong>3 vejce</strong>, <strong>100 ml oleje</strong>, <strong>150 g jogurtu</strong>, šťávu a kůru ze <strong>2 limetek</strong> a <strong>1 lžičku vanilky</strong>. Promíchej.</li>
+        <li>V jiné míse smíchej <strong>240 g hladké mouky</strong>, <strong>1 prášek do pečiva</strong>, <strong>1/2 lžičky sody</strong> a špetku soli.</li>
+        <li>Suchou směs nasyp k avokádové a promíchej jen do spojení.</li>
+        <li>Volitelně vmíchej <strong>80 g nasekané bílé čokolády</strong> nebo <strong>30 g kokosu</strong>.</li>
+        <li>Těsto nalij do formy a peč při 170&nbsp;°C asi <strong>45–55 minut</strong>. Ověř špejlí.</li>
+        <li>Nech 10 minut chladnout ve formě, pak vyklop a nech vychladnout. Skvěle ladí s limetkovou polevou nebo bílým jogurtem.</li>
+      </ol>
+
+      <a href="#top" class="back-top">↑ zpět nahoru</a>
+    </article>
+  </section>
+
+  <footer>
+    Joe Black – Bábovky · domácí sbírka receptů<br>
+    Tuto stránku můžeš libovolně upravovat a rozšiřovat o další bábovky.
+  </footer>
+</div>
+
+  <script>
+    
+  </script>
+</body>
+</html>
